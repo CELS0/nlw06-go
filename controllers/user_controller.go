@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/CELS0/nlw06-go/models"
@@ -9,9 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func UserController(c *gin.Context) {
+func UserCreateController(c *gin.Context) {
 	var p *models.User
-	fmt.Print(p)
 	err := c.ShouldBindJSON(&p)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -19,7 +17,7 @@ func UserController(c *gin.Context) {
 		})
 		return
 	}
-	services.Create(p)
+	services.CreateUser(p)
 
 	c.JSON(201, p)
 }
@@ -35,12 +33,42 @@ func UserGetController(c *gin.Context) {
 		return
 	}
 
-	var p = services.Get(newid)
+	var p = services.GetUser(newid)
 
 	c.JSON(200, p)
 }
 
 func UserFindAllControllers(c *gin.Context) {
-	var p = services.FindAll()
+	var p = services.FindAllUser()
+	c.JSON(200, p)
+}
+func UserDeleteController(c *gin.Context) {
+	id := c.Param("id")
+
+	newid, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "ID has to be integer",
+		})
+		return
+	}
+
+	services.DeleteUser(newid)
+
+	c.Status(200)
+}
+func UserUpdateController(c *gin.Context) {
+	var p *models.User
+
+	err := c.ShouldBindJSON(&p)
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "cannot bind JSON: " + err.Error(),
+		})
+		return
+	}
+
+	services.UpdateUser(p)
+
 	c.JSON(200, p)
 }
