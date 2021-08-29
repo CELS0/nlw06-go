@@ -5,16 +5,24 @@ import (
 	repository "github.com/CELS0/nlw06-go/repositories"
 )
 
-func Create(p *models.User) {
+func CreateUser(p *models.User) {
 	repository.NewCreate(p)
 }
 
-func Get(newid int) models.User {
+func GetUser(newid int) models.User {
 	var p = repository.FindOne(newid)
 	return p
 }
 
-func FindAll() []models.User {
+func FindAllUser() []models.User {
 	var p = repository.FindAll()
 	return p
+}
+
+func DeleteUser(newid int) {
+	repository.Delete(newid)
+}
+
+func UpdateUser(p *models.User) {
+	repository.Update(p)
 }
