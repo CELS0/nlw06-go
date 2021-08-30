@@ -1,11 +1,15 @@
 package services
 
 import (
+	"crypto/sha256"
+	"fmt"
+
 	"github.com/CELS0/nlw06-go/models"
 	repository "github.com/CELS0/nlw06-go/repositories"
 )
 
 func CreateUser(p *models.User) {
+	p.Password = sHA256Encoder(p.Password)
 	repository.NewCreate(p)
 }
 
@@ -25,4 +29,10 @@ func DeleteUser(newid int) {
 
 func UpdateUser(p *models.User) {
 	repository.Update(p)
+}
+
+func sHA256Encoder(s string) string {
+	str := sha256.Sum256([]byte(s))
+
+	return fmt.Sprintf("%x", str)
 }
