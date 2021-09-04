@@ -7,51 +7,51 @@ import (
 	"github.com/CELS0/nlw06-go/models"
 )
 
-func NewCreate(p *models.User) {
+func CreateTag(p *models.Tag) {
 	db := database.GetDatabase()
 
 	err := db.Create(&p).Error
 	if err != nil {
-		log.Fatal("cannot create user: " + err.Error())
+		log.Fatal("cannot create Tag: " + err.Error())
 	}
 }
 
-func FindOne(newid int) models.User {
+func FindOneTag(newid int) models.Tag {
 	db := database.GetDatabase()
-	var p models.User
+	var p models.Tag
 
 	err := db.First(&p, newid).Error
 	if err != nil {
-		log.Fatal("cannot find user: " + err.Error())
+		log.Fatal("cannot find Tag: " + err.Error())
 	}
 
 	return p
 }
 
-func FindAll() []models.User {
+func FindAllTag() []models.Tag {
 	db := database.GetDatabase()
 
-	var p []models.User
+	var p []models.Tag
 	err := db.Find(&p).Error
 	if err != nil {
-		log.Fatal("cannot list users: " + err.Error())
+		log.Fatal("cannot list Tags: " + err.Error())
 	}
 	return p
 }
 
-func Delete(newid int) {
+func DeleteTag(newid int) {
 	db := database.GetDatabase()
-	err := db.Delete(&models.User{}, newid).Error
+	err := db.Delete(&models.Tag{}, newid).Error
 	if err != nil {
-		log.Fatal("cannot delete user: " + err.Error())
+		log.Fatal("cannot delete Tag: " + err.Error())
 	}
 }
 
-func Update(p *models.User) {
+func UpdateTag(p *models.Tag) {
 	db := database.GetDatabase()
 
 	err := db.Save(&p).Error
 	if err != nil {
-		log.Fatal("cannot update user: " + err.Error())
+		log.Fatal("cannot update Tag: " + err.Error())
 	}
 }

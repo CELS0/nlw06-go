@@ -16,6 +16,14 @@ func ConfigRoutes(router *gin.Engine) *gin.Engine {
 			user.DELETE("/:id", controllers.UserDeleteController)
 			user.PUT("/", controllers.UserUpdateController)
 		}
+		tag := main.Group("tag")
+		{
+			tag.POST("/", controllers.TagCreateController)
+			tag.GET("/:id", controllers.TagGetController)
+			tag.GET("/", controllers.TagFindAllControllers)
+			tag.DELETE("/:id", controllers.TagDeleteController)
+			tag.PUT("/", controllers.TagUpdateController)
+		}
 	}
 	return router
 }
