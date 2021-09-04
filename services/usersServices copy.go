@@ -10,25 +10,25 @@ import (
 
 func CreateUser(p *models.User) {
 	p.Password = sHA256Encoder(p.Password)
-	repository.NewCreate(p)
+	repository.CreateUser(p)
 }
 
 func GetUser(newid int) models.User {
-	var p = repository.FindOne(newid)
+	var p = repository.FindOneUser(newid)
 	return p
 }
 
 func FindAllUser() []models.User {
-	var p = repository.FindAll()
+	var p = repository.FindAllUser()
 	return p
 }
 
 func DeleteUser(newid int) {
-	repository.Delete(newid)
+	repository.DeleteUser(newid)
 }
 
 func UpdateUser(p *models.User) {
-	repository.Update(p)
+	repository.UpdateUser(p)
 }
 
 func sHA256Encoder(s string) string {
